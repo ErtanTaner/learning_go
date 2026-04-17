@@ -1,0 +1,90 @@
+definitions:
+  types.Todo:
+    properties:
+      done:
+        type: boolean
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Todo management API
+  title: Simple Todo API
+paths:
+  /todo:
+    delete:
+      description: Delete a todo by ID
+      parameters:
+      - description: Todo ID
+        in: query
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete todo
+      tags:
+      - todos
+    get:
+      description: Get all todos or a single todo by ID (use id query param)
+      parameters:
+      - description: Todo ID (returns single todo if provided)
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/types.Todo'
+            type: array
+      summary: Get todos
+      tags:
+      - todos
+    post:
+      consumes:
+      - application/json
+      description: Create a new todo
+      parameters:
+      - description: Todo
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/types.Todo'
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+      summary: Create todo
+      tags:
+      - todos
+    put:
+      consumes:
+      - application/json
+      description: Update a todo by ID
+      parameters:
+      - description: Todo
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/types.Todo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update todo
+      tags:
+      - todos
+swagger: "2.0"
